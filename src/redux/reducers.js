@@ -3,27 +3,32 @@
 reducer函数: 根据老的state和指定的action 生产新的state
  */
 import {combineReducers} from 'redux'
+import {AUTH_SUCCESS,ERROR_MSG} from './action-types'
 
-
-const initXxx = 1
-function xxx (state=initXxx, action) {
+//管理user数据
+const initUser = {
+  username: '', // 用户名
+  type: '', // 用户类型
+  msg: '', // 需要显示的错误信息
+  redirectTo: '', // 需要自动重定向的路径
+}
+function user (state=initUser, action) {
   switch (action.type) {
+    case AUTH_SUCCESS:
+      const user = action.data
+      console.log('aaa'+user)
+      return{...user,redirectTo:'/'}
+    case ERROR_MSG:
+      const msg = action.data
+      return {...state,msg}
     default:
       return state
   }
 }
 
-const initYyy = {}
-function yyy (state=initYyy, action) {
-  switch (action.type) {
-    default:
-      return state
-  }
-}
 
 export default combineReducers({
-  xxx,
-  yyy
+  user
 })
 
 /*

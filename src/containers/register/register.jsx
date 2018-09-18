@@ -1,13 +1,16 @@
 import React, {Component} from 'react'
 import {NavBar, WingBlank, List, WhiteSpace, InputItem, Radio, Button} from 'antd-mobile'
+import {Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
 
+import {register} from '../../redux/actions'
 import Logo from '../../componnets/logo/logo'
 
 const ListItem = List.Item
 /*
 注册路由组件
  */
-export default class Register extends Component {
+class Register extends Component {
   //初始状态数据
   state = {
     username: '',
@@ -24,7 +27,8 @@ export default class Register extends Component {
   }
   // 注册的回调函数
   register = () => {
-    alert('已经注册成功')
+    // console.log(this.state)
+    this.props.register(this.state)
   }
   // 登录的回调函数
   goLogin = () => {
@@ -34,7 +38,12 @@ export default class Register extends Component {
 
   render () {
     const {type} = this.state
-
+    const {msg, redirectTo} = this.props.user
+    //如果redirectTo有值，就需要自动跳转到对应的路径
+    if (redirectTo){
+      //render 函数中需要自动跳转
+      return <Redirect to = {redirectTo}></Redirect>
+    }
     return (
       <div>
         <NavBar>硅谷直聘</NavBar>
@@ -43,6 +52,7 @@ export default class Register extends Component {
         <WingBlank>
           <WhiteSpace/>
           <List>
+            {msg ? <p>{msg}</p>:null}
             <InputItem placeholder = '请输入用户名' onChange={val => this.handleChange('username',val)}>用 户 名:</InputItem>
             <WhiteSpace/>
             <InputItem type='password' placeholder = '请输入密码' onChange={ val => this.handleChange('password',val)}>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</InputItem>
@@ -65,3 +75,8 @@ export default class Register extends Component {
     )
   }
 }
+
+export default connect(
+  state => ({user: state.user}),  // {user: user()}
+  {register}
+  )(Register)
