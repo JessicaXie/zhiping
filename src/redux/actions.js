@@ -10,9 +10,9 @@ import {AUTH_SUCCESS,ERROR_MSG, RECEIVE_USER, RESET_USER} from './action-types'
 const authSuccess = (user) => ({type:AUTH_SUCCESS,data:user})
 //注册/登录失败的同步action
 const errorMsg = (msg) => ({type:ERROR_MSG,data:msg})
-//注册/登录失败的同步action
+//更新用户的同步action
 const receiveUser = (user) => ({type:RECEIVE_USER,data:user})
-//注册/登录失败的同步action
+//重置用户信息的同步action
 const resetUser = (msg) => ({type:RESET_USER,data:msg})
 
 
@@ -87,6 +87,7 @@ export function login(username, password) {
     if (result.code === 0 ) {//成功
       const user = result.data
       //分发成功同步action
+      dispatch()
     } else {//失败
       const msg = result.msg
       //分发失败同步action

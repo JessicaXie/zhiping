@@ -1,17 +1,18 @@
 import React,{Component} from 'react'
 import {NavBar,WhiteSpace,Button,List,InputItem,TextareaItem,WingBlank} from 'antd-mobile'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
 import SetHeaderIcon from '../../componnets/headerIcon/headerIcon'
 import {updateUser} from '../../redux/actions'
 
 class LaobanInfo extends Component{
   state = {
-    header: '',
-    info: '',
-    post: '',
-    salary: '',
-    company: ''
+    header: '', // 头像名称
+    info: '', // 职位简介
+    post: '', // 职位名称
+    company: '', // 公司名称
+    salary: '' // 工资
   }
 
   //得到头像的回调函数
@@ -36,6 +37,12 @@ class LaobanInfo extends Component{
 
 
   render(){
+    const {header} = this.props.user
+    //如果redirectTo有值，就需要自动跳转到对应的路径
+    if (header){
+      //render 函数中需要自动跳转
+      return <Redirect to = '/laoban'/>
+    }
     return(
       <div>
         <NavBar>老板信息完善</NavBar>
