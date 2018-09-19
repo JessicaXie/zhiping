@@ -12,7 +12,17 @@ const authSuccess = (user) => ({type:AUTH_SUCCESS,data:user})
 const errorMsg = (msg) => ({type:ERROR_MSG,data:msg})
 
 //注册异步action
-export function register({username, password, type}) {
+export function register({username, password, repassword, type}) {
+  if (!username){
+    return errorMsg('请输入用户名')
+  } else if (!password) {
+    return errorMsg('请输入密码')
+  }else if (password !== repassword){
+    return errorMsg('密码两次不一致')
+  } else if (!type) {
+    return errorMsg('请选择用户类型')
+  }
+
   return dispatch => {
     //异步ajax请求注册接口
     reqRegister({username, password, type}).then(response => {
@@ -34,10 +44,16 @@ export function register({username, password, type}) {
 
 
 //登录异步action
-export function login(usename, password) {
+export function login(username, password) {
   return dispatch => {
+    if (!username){
+      return dispatch(errorMsg('请输入用户名'))
+    } else if (!password) {
+      return dispatch(errorMsg('请输入密码'))
+    }
+
     //异步ajax请求登录接口
-    reqLogin(usename, password).then(response => {
+    reqLogin(username, password).then(response => {
       const result = response.data
       if (result.code === 0 ) {//成功
         const user = result.data

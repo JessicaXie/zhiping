@@ -52,7 +52,7 @@ class Register extends Component {
         <WingBlank>
           <WhiteSpace/>
           <List>
-            {msg ? <p>{msg}</p>:null}
+            {msg ? <p className='error-msg'>{msg}</p>:null}
             <InputItem placeholder = '请输入用户名' onChange={val => this.handleChange('username',val)}>用 户 名:</InputItem>
             <WhiteSpace/>
             <InputItem type='password' placeholder = '请输入密码' onChange={ val => this.handleChange('password',val)}>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</InputItem>
