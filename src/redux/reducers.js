@@ -18,6 +18,7 @@ function user (state=initUser, action) {
   switch (action.type) {
     case AUTH_SUCCESS:
       const user = action.data
+      console.log('ACC: '+user.type+'&&'+user.header)
       return{...user,redirectTo:getRedirectPath(user.type, user.header)}
     case ERROR_MSG:
       const msg = action.data

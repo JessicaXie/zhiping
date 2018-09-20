@@ -16,7 +16,7 @@ import NavFooter from '../../componnets/nav-footer/nav-footer'
 /*
 主界面路由组件
  */
-export default class Main extends Component {
+class Main extends Component {
   navList = [
     {
       path: '/laoban', // 路由路径
@@ -50,7 +50,8 @@ export default class Main extends Component {
 
   render () {
     //先判断时候是登录状态，用cookie来判断，借用js-cookie库
-    const {userid} = Cookies.get('userid')
+    const userid = Cookies.get('userid')
+    // const userids = Cookies.get('userid')
     if(!userid){
       return <Redirect to = '/login'/>
     }
@@ -95,3 +96,13 @@ export default connect(
   state => ({user: state.user}),
   {}
 )(Main)
+
+/**
+ * 自动登录的思路：
+ *  1.判断cookis中是否存在userid,
+ *    1)不在：跳转到登录界面去登录
+ *    2)在：判断在redux 中的state中是否存在user
+ *      a)在：说明已经登录了，看是不是访问的是根目录，是就自动跳转到对应的主界面中去
+ *      b)不在：发送ajax异步请求获取use信息，保存redux 中state中去
+ *
+ * */

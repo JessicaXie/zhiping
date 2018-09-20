@@ -30,20 +30,6 @@ export function register({username, password, repassword, type}) {
 
   return async dispatch => {
     //异步ajax请求注册接口
-    /*reqRegister({username, password, type}).then(response => {
-      const result = response.data
-      if (result.code === 0 ) {//成功
-        console.log(result)
-        const user = result.data
-        console.log(user)
-        //分发成功同步action
-        dispatch(authSuccess(user))
-      } else {//失败
-        const msg = result.msg
-        //分发失败同步action
-        dispatch(errorMsg(msg))
-      }
-    })*/
     const response = await reqRegister({username, password, type})
     const result = response.data
     if (result.code === 0 ) {//成功
@@ -63,6 +49,7 @@ export function register({username, password, repassword, type}) {
 
 //登录异步action
 export function login(username, password) {
+  console.log('aaa')
   return async dispatch => {
     if (!username){
       return dispatch(errorMsg('请输入用户名'))
@@ -71,23 +58,13 @@ export function login(username, password) {
     }
 
     //异步ajax请求登录接口
-  /*  reqLogin(username, password).then(response => {
-      const result = response.data
-      if (result.code === 0 ) {//成功
-        const user = result.data
-        //分发成功同步action
-      } else {//失败
-        const msg = result.msg
-        //分发失败同步action
-        dispatch(errorMsg(msg))
-      }
-    })*/
-    const response = await reqLogin(username, password)
+    const response =await reqLogin(username, password)
     const result = response.data
     if (result.code === 0 ) {//成功
       const user = result.data
+      console.log(user)
       //分发成功同步action
-      dispatch()
+      dispatch(authSuccess(user))
     } else {//失败
       const msg = result.msg
       //分发失败同步action
