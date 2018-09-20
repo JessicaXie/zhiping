@@ -4,7 +4,7 @@ reducer函数: 根据老的state和指定的action 生产新的state
  */
 import {combineReducers} from 'redux'
 
-import {AUTH_SUCCESS,ERROR_MSG, RECEIVE_USER, RESET_USER} from './action-types'
+import {AUTH_SUCCESS,ERROR_MSG, RECEIVE_USER, RESET_USER, RESET_USER_LIST} from './action-types'
 import {getRedirectPath} from '../utils/index'
 
 //管理user数据
@@ -18,7 +18,6 @@ function user (state=initUser, action) {
   switch (action.type) {
     case AUTH_SUCCESS:
       const user = action.data
-      console.log('ACC: '+user.type+'&&'+user.header)
       return{...user,redirectTo:getRedirectPath(user.type, user.header)}
     case ERROR_MSG:
       const msg = action.data
@@ -32,9 +31,20 @@ function user (state=initUser, action) {
   }
 }
 
+//管理userlist数据
+const inituserlist = []
+function userList(state=inituserlist, action) {
+  switch (action.type){
+    case RESET_USER_LIST:
+      return action.data
+    default:
+      return state
+  }
+}
 
 export default combineReducers({
-  user
+  user,
+  userList
 })
 
 /*

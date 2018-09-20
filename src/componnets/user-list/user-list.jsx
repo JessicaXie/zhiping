@@ -1,18 +1,46 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+import PropTypes from 'prop-types'
+import {Card, WingBlank, WhiteSpace} from 'antd-mobile'
+
+const Header = Card.Header
+const Body = Card.Body
+
 
 /*
-大神的主界面路由组件
+用户列表路由组件
  */
 class UserList extends Component {
+
+  static propTypes ={
+    userList: PropTypes.array.isRequired
+  }
+
   render () {
+    const userList = this.props.userList.filter(use => use.header)
+    console.log(this.props.userList)
     return (
-      <div>UserList</div>
-    )
+      <WingBlank>
+        {
+          userList.map((use, index) => (
+            <div key={use._id}>
+              <WhiteSpace/>
+              <Card>
+                <Header thumb={require(`../../assets/imgs/${use.header}.png`)}
+                        extra={use.username} />
+                <Body>
+                  {use.post ? <div>职位: {use.post}</div> : null}
+                  {use.company ? <div>公司: {use.company}</div> : null}
+                  {use.salary ? <div>月薪: {use.salary}</div> : null}
+                  {use.info ? <div>描述: {use.info}</div> : null}
+                </Body>
+              </Card>
+            </div>
+          ))
+        }
+      </WingBlank>
+      )
   }
 }
 
-export default connect(
-  state => ({}),
-  {}
-)(UserList)
+export default withRouter(UserList)
