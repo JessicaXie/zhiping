@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {getUserList} from '../../redux/actions'
 
 import UserList from '../../componnets/user-list/user-list'
 
@@ -7,14 +8,20 @@ import UserList from '../../componnets/user-list/user-list'
 老板的主界面路由组件
  */
 class Laoban extends Component {
+
+  // 发请求异步从后台获取userList到redux的userList状态
+  componentDidMount(){
+    this.props.getUserList('dashen')
+  }
+
   render () {
     return (
-      <UserList/>
+      <UserList userList = {this.props.userList}/>
     )
   }
 }
 
 export default connect(
-  state => ({userlist : state.userlist}),
-  {}
+  state => ({userList : state.userList}),
+  {getUserList}
 )(Laoban)

@@ -31,6 +31,7 @@ class Profile extends Component {
   }
 
   render () {
+    console.log(this.props.user)
     const {username, header, post, info, salary, company} = this.props.user
     return (
       <div>

@@ -18,14 +18,15 @@ class UserList extends Component {
 
   render () {
     const userList = this.props.userList.filter(use => use.header)
-    console.log(this.props.userList)
+
     return (
       <WingBlank>
         {
+
           userList.map((use, index) => (
             <div key={use._id}>
               <WhiteSpace/>
-              <Card>
+              <Card >
                 <Header thumb={require(`../../assets/imgs/${use.header}.png`)}
                         extra={use.username} />
                 <Body>

@@ -3,8 +3,14 @@
 同步action: 对象
 异步action: dispatch函数
  */
-import {reqRegister,reqLogin,reqUpdateUser,reqUserLiset} from '../api'
-import {AUTH_SUCCESS,ERROR_MSG, RECEIVE_USER, RESET_USER,RESET_USER_LIST} from './action-types'
+import {
+  reqRegister,
+  reqLogin,
+  reqUpdateUser,
+  reqUserList
+} from '../api'
+import {AUTH_SUCCESS,ERROR_MSG, RECEIVE_USER, RESET_USER,RECEIVE_USER_LIST} from './action-types'
+import {reqUser} from "../../../180524_gzhipin-client/src/api";
 
 //注册/登录成功的同步action
 const authSuccess = (user) => ({type:AUTH_SUCCESS,data:user})
@@ -15,7 +21,7 @@ const receiveUser = (user) => ({type:RECEIVE_USER,data:user})
 //重置用户信息的同步action
 export const resetUser = (msg) => ({type:RESET_USER,data:msg})
 //获取用户列表的同步action
-export const resetUserList = (userList) => ({type:RESET_USER_LIST,data:userList})
+export const receiveUserList = (userList) => ({type:RECEIVE_USER_LIST,data:userList})
 
 //注册异步action
 export function register({username, password, repassword, type}) {
@@ -84,20 +90,39 @@ export function updateUser (user){
       const user = result.data
       dispatch(receiveUser(user))
     } else {//更新失败
-      const msg = result.meg
+      const msg = result.msg
       dispatch(resetUser(msg))
 
     }
   }
 }
 
-//根据用户的type来获取用户的列表信息
-export function getUserLiset(type) {
+/*
+获取当前用户的异步action
+ */
+export function getUser() {
   return async dispatch => {
-    const response = await reqUserLiset(type)
+    // 发ajax请求, 获取user
+    const response = await reqUser()
+    const result = response.data
+    // 分发同步action
+    if(result.code===0) {// 成功得到user
+      dispatch(receiveUser(result.data))
+    } else { // 失败
+      dispatch(resetUser(result.msg))
+    }
+  }
+}
+
+
+//根据用户的type来获取用户的列表信息
+export function getUserList(type) {
+  return async dispatch => {
+    const response = await reqUserList(type)
     const result = response.data
     if(result.code === 0) {
-      dispatch(resetUserList(type))
+      const userList = result.data
+      dispatch(receiveUserList(userList))
     }
   }
 }

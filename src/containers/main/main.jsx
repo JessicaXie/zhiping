@@ -10,7 +10,7 @@ import Laoban from '../laoban/laoban'
 import Dashen from '../dashen/dashen'
 import Message from '../message/message'
 import Profile from '../profile/profile'
-
+import {getUser} from '../../redux/actions'
 import NavFooter from '../../componnets/nav-footer/nav-footer'
 
 /*
@@ -94,7 +94,7 @@ class Main extends Component {
 
 export default connect(
   state => ({user: state.user}),
-  {}
+  {getUser}
 )(Main)
 
 /**
