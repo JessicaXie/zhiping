@@ -35,7 +35,7 @@ export default class SetHeaderIcon extends Component{
       })
     }
     const {icon} = this.state
-    const headerUI = icon ? (<div><span>你选择的头像是</span><img src={icon}/></div>) : '请选择头像'
+    const headerUI = icon ? (<div><span>你选择的头像是</span><img src={icon} alt='header'/></div>) : '请选择头像'
 
     return(
       <List renderHeader={() => headerUI}>

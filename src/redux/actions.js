@@ -7,10 +7,10 @@ import {
   reqRegister,
   reqLogin,
   reqUpdateUser,
-  reqUserList
+  reqUserList,
+  reqUser
 } from '../api'
 import {AUTH_SUCCESS,ERROR_MSG, RECEIVE_USER, RESET_USER,RECEIVE_USER_LIST} from './action-types'
-import {reqUser} from "../../../180524_gzhipin-client/src/api";
 
 //注册/登录成功的同步action
 const authSuccess = (user) => ({type:AUTH_SUCCESS,data:user})
@@ -56,8 +56,8 @@ export function register({username, password, repassword, type}) {
 
 //登录异步action
 export function login(username, password) {
-  console.log('aaa')
   return async dispatch => {
+
     if (!username){
       return dispatch(errorMsg('请输入用户名'))
     } else if (!password) {

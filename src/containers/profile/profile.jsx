@@ -31,7 +31,6 @@ class Profile extends Component {
   }
 
   render () {
-    console.log(this.props.user)
     const {username, header, post, info, salary, company} = this.props.user
     return (
       <div>
@@ -43,6 +42,7 @@ class Profile extends Component {
 
         <List renderHeader={() => '相关信息'}>
           <Item multipleLine>
+            {salary ? <Brief>公司: {company}</Brief> : null}
             {post ? <Brief>职位: {post}</Brief> : null}
             {info ? <Brief>简介: {info}</Brief> : null}
             {salary ? <Brief>薪资: {salary}</Brief> : null}

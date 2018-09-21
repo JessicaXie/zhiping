@@ -23,7 +23,6 @@ function user (state=initUser, action) {
       const msg = action.data
       return {...state,msg}
     case RECEIVE_USER:
-      console.log(action.data)
       return action.data
     case RESET_USER:
       return {...initUser,msg:action.msg}
