@@ -42,7 +42,7 @@ class Register extends Component {
     //如果redirectTo有值，就需要自动跳转到对应的路径
     if (redirectTo){
       //render 函数中需要自动跳转
-      return <Redirect to = {redirectTo}></Redirect>
+      return <Redirect to = {redirectTo}/>
     }
     return (
       <div>

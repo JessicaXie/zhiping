@@ -30,12 +30,12 @@ export default class SetHeaderIcon extends Component{
       headerList.push({
         // 必须用require()动态加载一个图片模块
         // webpack默认就可以编译打包ES6和commonjs
-        icon:require('./imgs/头像'+(i+1)+'.png'),
+        icon:require('../../assets/imgs/头像'+(i+1)+'.png'),
         text:'头像'+(i+1)
       })
     }
     const {icon} = this.state
-    const headerUI = icon ? (<div><span>你选择的头像是</span><img src={icon}/></div>) : '请选择头像'
+    const headerUI = icon ? (<div><span>你选择的头像是</span><img src={icon} alt='header'/></div>) : '请选择头像'
 
     return(
       <List renderHeader={() => headerUI}>
